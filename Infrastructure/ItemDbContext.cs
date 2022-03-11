@@ -9,7 +9,7 @@ public class ItemDbContext : DbContext
     { }
     
     public DbSet<Item> Items { get; set; } = null!;
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
