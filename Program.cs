@@ -1,4 +1,8 @@
+using items.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.SetupDatabase();
 
 builder.Services.AddControllers();
 

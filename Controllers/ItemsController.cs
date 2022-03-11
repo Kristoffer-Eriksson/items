@@ -1,26 +1,34 @@
+using items.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace items.Controllers;
 
-public class Item
-{
-    public string Id { get; set; } = null!;
-    public string Description { get; set; }= null!;
-}
-
 [ApiController]
 public class ItemsController : ControllerBase
 {
-    [HttpGet, Route("Items/AllItems")]
-    public IEnumerable<Item> Get()
+    private readonly ItemDbContext _itemDbContext;
+    
+    public ItemsController(ItemDbContext itemDbContext)
     {
-        return new[]
+        _itemDbContext = itemDbContext;
+    }
+
+    [HttpGet, Route("Items/AllItems")]
+    public IEnumerable<Item> AllItems()
+    {
+        return _itemDbContext.Items.ToList();
+    }
+
+    [HttpGet, Route("Items/AddItem")]
+    public Item AddItem([FromQuery] string description)
+    {
+        var newItem = new Item
         {
-            new Item
-            {
-                Id = "123",
-                Description = "An item"
-            }
+            Id = Guid.NewGuid(),
+            Description = description
         };
+        _itemDbContext.Items.Add(newItem);
+        _itemDbContext.SaveChanges();
+        return newItem;
     }
 }
