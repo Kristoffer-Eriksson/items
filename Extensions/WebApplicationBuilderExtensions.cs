@@ -14,11 +14,7 @@ public static class WebApplicationBuilderExtensions
         
         Console.WriteLine($"Connecting to postgresql with connection string: {connectionString}");
         builder.Services.AddDbContext<ItemDbContext>(options => 
-            options.UseNpgsql(connectionString, sqlOptions =>
-            {
-                sqlOptions.MigrationsAssembly(typeof(ItemDbContext).GetTypeInfo().Assembly.GetName().Name);
-                sqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "dbo");
-            }));
+            options.UseNpgsql(connectionString));
 
         return builder;
     }
