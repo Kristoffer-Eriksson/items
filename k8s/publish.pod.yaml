@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Pod
+metadata:
+  name: publish
+  namespace: items
+spec:
+  restartPolicy: Never
+  containers:
+    - name: publish
+      image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
+      command: ["/bin/sh", "-c"]
+      args:
+        - mkdir /app;
+          git clone https://github.com/Kristoffer-Eriksson/items.git /app;
+          source /app/Scripts/Publish.sh
