@@ -12,4 +12,5 @@ spec:
       args:
         - mkdir /app;
           git clone https://github.com/Kristoffer-Eriksson/items.git /app;
-          source /app/Scripts/Publish.sh
+          cd /app;
+          source Scripts/Publish.sh
